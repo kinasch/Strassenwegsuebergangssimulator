@@ -7,7 +7,6 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private float[] xBounds;
-    [SerializeField] private float[] yBounds;
 
     private void FixedUpdate()
     {
@@ -26,8 +25,7 @@ public class CameraController : MonoBehaviour
         
         // As long as the player stays in the boundary, the camera move with the player.
         // Upon leaving the boundary with the player, the camera stays at the last position.
-        // 
         var playerPosition = player.transform.position;
-        transform.position = new Vector3(Mathf.Clamp(playerPosition.x, xBounds[0], xBounds[1]), Mathf.Clamp(playerPosition.y, yBounds[0], yBounds[1]), -10);
+        transform.position = new Vector3(Mathf.Clamp(playerPosition.x, xBounds[0], xBounds[1]), 0, -10);
     }
 }
