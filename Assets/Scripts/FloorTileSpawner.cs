@@ -6,11 +6,14 @@ public class FloorTileSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private GameObject floorTilePrefab;
-    [SerializeField] private GameObject grassTilesParent;
+    [SerializeField] private GameObject[] parents;
     [SerializeField] private float endX;
+    [SerializeField] private int seed;
     
     void Start()
     {
+        // Set the seed before anything else.
+        Random.InitState(seed);
         // First, spawn all the tiles and hide it with the loading screen.
         SpawnTiles();
         // Second, "remove" the loading screen.
@@ -20,16 +23,37 @@ public class FloorTileSpawner : MonoBehaviour
     private void SpawnTiles()
     {
         // Test generation to fill the field for the 2D camera.
-        for (float i = -9.5f; i <= endX-0.5f; i++)
+        for (float i = -9.5f; i <= 20-0.5f; i++)
         {
-            for (float j = -4.5f; j <= 4.5f; j++)
+            if (i < -6)
             {
-                var newObj = Instantiate(floorTilePrefab, new Vector3(i, j, 0), new Quaternion() ,grassTilesParent.transform);
-                // Road tiles (missing sprite so far)
-                if (i > -2 && i < 2)
-                {
-                    newObj.GetComponent<SpriteRenderer>().color = Color.black;
-                }
+                SpawnRandomTiles(i, 0.2f);
+            }
+            else
+            {
+                SpawnRandomTiles(i);
+            }
+        }
+    }
+
+    private void SpawnRandomTiles(float xRow, float randomizer = 10f)
+    {
+        randomizer = randomizer > 1 ? Random.value : randomizer;
+        for (float j = -4.5f; j <= 4.5f; j++)
+        {
+            if (randomizer < 0.7f)
+            {
+                var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[0].transform);
+            }
+            else if (randomizer > 0.7f && randomizer < 0.9f)
+            {
+                var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[1].transform);
+                newObj.GetComponent<SpriteRenderer>().color = Color.black;
+            }
+            else if (randomizer > 0.9f)
+            {
+                var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[2].transform);
+                newObj.GetComponent<SpriteRenderer>().color = Color.red;
             }
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 0.1f;
+    [SerializeField] private Camera mainCam;
     
     private Vector2 target;
 
@@ -52,9 +53,24 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // Move the player towards the target.
-            // Move a bit on the z-Axis to display above the floor tiles.
-            transform.position = (Vector3)Vector2.MoveTowards(transform.position, target, speed) + new Vector3(0,0,-0.1f);
+            // Boundary Detection
+            Vector3 camPos = mainCam.transform.position;
+            if (target.x > camPos.x - 9f && target.x < camPos.x + 9f && target.y > camPos.y - 5f && target.y < camPos.y + 5f)
+            {
+                // Move the player towards the target.
+                // Move a bit on the z-Axis to display above the floor tiles.
+                transform.position = (Vector3) Vector2.MoveTowards(transform.position, target, speed) +
+                                     new Vector3(0, 0, -0.1f);
+            }
+            else
+            {
+                target = transform.position;
+            }
         }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("test");
     }
 }
