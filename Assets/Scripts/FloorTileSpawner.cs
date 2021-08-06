@@ -36,7 +36,7 @@ public class FloorTileSpawner : MonoBehaviour
             SpawnRandomTiles(rows-8.5f);
         }
         
-        /*TileGarbageCollector(mainCam.position.x-12);*/
+        TileGarbageCollector(Mathf.Round(mainCam.position.x)-12.5f);
     }
 
     private void SpawnTiles()
@@ -89,12 +89,16 @@ public class FloorTileSpawner : MonoBehaviour
 
     private void TileGarbageCollector(float xPos)
     {
-        var list = tiles[xPos];
-        foreach (var gO in list)
+        if (tiles.ContainsKey(xPos))
         {
-            Destroy(gO);
-        }
+            Debug.Log("test");
+            var list = tiles[xPos];
+            foreach (var gO in list)
+            {
+                Destroy(gO);
+            }
 
-        tiles.Remove(xPos);
+            tiles.Remove(xPos);
+        }
     }
 }
