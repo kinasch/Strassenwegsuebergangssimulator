@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class FloorTileSpawner : MonoBehaviour
 {
-    [SerializeField] private Canvas can;
+    [SerializeField] private GameObject loadingScreen;
     [SerializeField] private GameObject floorTilePrefab;
     [SerializeField] private GameObject grassTilesParent;
+    [SerializeField] private float endX;
     
     void Start()
     {
         // First, spawn all the tiles and hide it with the loading screen.
         SpawnTiles();
         // Second, "remove" the loading screen.
-        can.gameObject.SetActive(false);
+        loadingScreen.gameObject.SetActive(false);
     }
 
     private void SpawnTiles()
     {
         // Test generation to fill the field for the 2D camera.
-        for (float i = -9.5f; i <= 9.5f; i++)
+        for (float i = -9.5f; i <= endX-0.5f; i++)
         {
             for (float j = -4.5f; j <= 4.5f; j++)
             {
@@ -31,5 +32,10 @@ public class FloorTileSpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    public float GetEndX()
+    {
+        return endX;
     }
 }
