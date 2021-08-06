@@ -299,8 +299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1892595664}
-  xBound: -0.1
-  floorTileSpawner: {fileID: 1460298095}
 --- !u!1 &255774403
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +681,7 @@ MonoBehaviour:
   - {fileID: 564103065}
   - {fileID: 1923009256}
   - {fileID: 921584014}
-  endX: 20
+  mainCam: {fileID: 131163714}
   seed: 0
 --- !u!1 &1475276368
 GameObject:

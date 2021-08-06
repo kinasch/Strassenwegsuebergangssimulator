@@ -6,8 +6,6 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-    [SerializeField] private float xBound;
-    [SerializeField] private FloorTileSpawner floorTileSpawner;
 
     private void FixedUpdate()
     {
@@ -26,7 +24,7 @@ public class CameraController : MonoBehaviour
         
         // As long as the player stays in the boundary, the camera move with the player.
         // Upon leaving the boundary with the player, the camera stays at the last position.
-        var playerPosition = player.transform.position;
-        transform.position = new Vector3(Mathf.Clamp(playerPosition.x, xBound, floorTileSpawner.GetEndX()-8.9f), 0, -10);
+        var playerPosition = player.transform.position + new Vector3(0.4f,0,0);
+        transform.position = new Vector3(Mathf.Clamp(playerPosition.x, transform.position.x, float.MaxValue), 0, -10);
     }
 }
