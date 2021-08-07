@@ -9,10 +9,10 @@ public class FloorTileSpawner : MonoBehaviour
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private GameObject floorTilePrefab;
     [SerializeField] private GameObject[] parents;
-    [SerializeField] private Transform mainCam;
+    [SerializeField] public Transform mainCam;
     [SerializeField] private int seed;
 
-    private List<float> streetRows = new List<float>();
+    public List<float> streetRows = new List<float>();
     private Dictionary<float, GameObject[]> tiles = new Dictionary<float, GameObject[]>();
     private int rows = 0;
     private bool startUpDone = false;
@@ -98,6 +98,11 @@ public class FloorTileSpawner : MonoBehaviour
                 Destroy(gO);
             }
 
+            if (streetRows.Contains(xPos))
+            {
+                streetRows.Remove(xPos);
+            }
+            
             tiles.Remove(xPos);
         }
     }

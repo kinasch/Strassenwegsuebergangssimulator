@@ -642,6 +642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1460298094}
   - component: {fileID: 1460298095}
+  - component: {fileID: 1460298096}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -682,7 +683,23 @@ MonoBehaviour:
   - {fileID: 1923009256}
   - {fileID: 921584014}
   mainCam: {fileID: 131163714}
-  seed: 0
+  seed: 10
+  streetRows: []
+--- !u!114 &1460298096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460298093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0bb0ec066a226428941dd30cd2f697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorTileSpawner: {fileID: 1460298095}
+  vehiclePrefab: {fileID: 3180615961859947690, guid: a4915dd55ed3bb84795682add20f3005, type: 3}
+  vehicleParent: {fileID: 1110895931}
 --- !u!1 &1475276368
 GameObject:
   m_ObjectHideFlags: 0
