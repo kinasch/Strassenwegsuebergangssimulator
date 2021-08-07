@@ -9,7 +9,7 @@ public class FloorTileSpawner : MonoBehaviour
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private GameObject floorTilePrefab;
     [SerializeField] private GameObject[] parents;
-    [SerializeField] private Transform mainCam;
+    [SerializeField] public Transform mainCam;
     [SerializeField] private int seed;
 
     public List<float> streetRows = new List<float>();
