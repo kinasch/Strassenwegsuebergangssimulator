@@ -6,6 +6,8 @@ using Random = System.Random;
 
 public class VehicleBehaviour : MonoBehaviour
 {
+    public GameManaging gameManager;
+    
     private Vector2 target, startPos;
     public float speed = 0.08f;
     private void Start()
@@ -32,6 +34,6 @@ public class VehicleBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log(other.gameObject.name);
+        gameManager.LoseGame();
     }
 }

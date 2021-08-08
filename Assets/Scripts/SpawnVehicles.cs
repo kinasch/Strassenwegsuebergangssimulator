@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class SpawnVehicles : MonoBehaviour
 {
-    [SerializeField] private FloorTileSpawner floorTileSpawner;
+    [SerializeField] private GameObject gameManager;
     [SerializeField] private GameObject vehiclePrefab, vehicleParent;
 
     private List<float> rowsWithVehicles = new List<float>();
+    private FloorTileSpawner floorTileSpawner;
+    private GameManaging gameManaging;
     private Dictionary<float, GameObject[]> vehicles = new Dictionary<float, GameObject[]>();
+
+    private void Start()
+    {
+        floorTileSpawner = gameManager.GetComponent<FloorTileSpawner>();
+        gameManaging = gameManager.GetComponent<GameManaging>();
+    }
 
     private void FixedUpdate()
     {
@@ -37,6 +45,7 @@ public class SpawnVehicles : MonoBehaviour
         {
             var obj = Instantiate(vehiclePrefab, new Vector3(xRow, sign*5.5f, -0.1f), Quaternion.Euler(0, 0, rotation), vehicleParent.transform);
             obj.GetComponent<VehicleBehaviour>().speed = speed;
+            obj.GetComponent<VehicleBehaviour>().gameManager = gameManaging;
             spawnedVehicles.Add(obj);
             yield return new WaitForSeconds(0.3f-speed);
         }
@@ -48,7 +57,6 @@ public class SpawnVehicles : MonoBehaviour
     {
         if (vehicles.ContainsKey(xPos))
         {
-            Debug.Log("test");
             var list = vehicles[xPos];
             foreach (var gO in list)
             {
