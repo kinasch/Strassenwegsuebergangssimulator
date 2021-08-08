@@ -10,7 +10,6 @@ public class FloorTileSpawner : MonoBehaviour
     [SerializeField] private GameObject floorTilePrefab;
     [SerializeField] private GameObject[] parents;
     [SerializeField] public Transform mainCam;
-    [SerializeField] private int seed;
 
     public List<float> streetRows = new List<float>();
     private Dictionary<float, GameObject[]> tiles = new Dictionary<float, GameObject[]>();
@@ -21,7 +20,7 @@ public class FloorTileSpawner : MonoBehaviour
     {
         rows = 0;
         // Set the seed before anything else.
-        Random.InitState(seed);
+        //Random.InitState(seed);
         // First, spawn all the tiles and hide it with the loading screen.
         SpawnTiles();
         // Second, "remove" the loading screen.
@@ -61,12 +60,12 @@ public class FloorTileSpawner : MonoBehaviour
         randomizer = randomizer > 1 ? Random.value : randomizer;
         for (float j = -5.5f; j <= 5.5f; j++)
         {
-            if (randomizer < 0.7f)
+            if (randomizer <= 0.4f)
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[0].transform);
                 newObjectsList.Add(newObj);
             }
-            else if (randomizer > 0.7f && randomizer < 0.9f)
+            else if (randomizer > 0.4f && randomizer <= 0.8f)
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[1].transform);
                 newObj.GetComponent<SpriteRenderer>().color = Color.black;
@@ -76,7 +75,7 @@ public class FloorTileSpawner : MonoBehaviour
                 }
                 newObjectsList.Add(newObj);
             }
-            else if (randomizer > 0.9f)
+            else if (randomizer > 0.8f)
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[2].transform);
                 newObj.GetComponent<SpriteRenderer>().color = Color.red;
@@ -91,7 +90,6 @@ public class FloorTileSpawner : MonoBehaviour
     {
         if (tiles.ContainsKey(xPos))
         {
-            Debug.Log("test");
             var list = tiles[xPos];
             foreach (var gO in list)
             {

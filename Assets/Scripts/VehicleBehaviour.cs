@@ -6,6 +6,8 @@ using Random = System.Random;
 
 public class VehicleBehaviour : MonoBehaviour
 {
+    public GameManaging gameManager;
+    
     private Vector2 target, startPos;
     public float speed = 0.08f;
     private void Start()
@@ -28,5 +30,10 @@ public class VehicleBehaviour : MonoBehaviour
             transform.position = (Vector3) Vector2.MoveTowards(transform.position, target, speed) + new Vector3(0, 0, -0.1f);
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        gameManager.LoseGame();
     }
 }

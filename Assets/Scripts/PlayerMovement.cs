@@ -68,9 +68,4 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log("test");
-    }
 }
