@@ -61,12 +61,12 @@ public class FloorTileSpawner : MonoBehaviour
         randomizer = randomizer > 1 ? Random.value : randomizer;
         for (float j = -5.5f; j <= 5.5f; j++)
         {
-            if (randomizer < 0.7f)
+            if (randomizer < 0.6f)
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[0].transform);
                 newObjectsList.Add(newObj);
             }
-            else if (randomizer > 0.7f && randomizer < 0.9f)
+            else if (randomizer > 0.6f && randomizer < 0.85f)
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[1].transform);
                 newObj.GetComponent<SpriteRenderer>().color = Color.black;
