@@ -59,8 +59,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 // Move the player towards the target.
                 // Move a bit on the z-Axis to display above the floor tiles.
-                transform.position = (Vector3) Vector2.MoveTowards(transform.position, target, speed) +
-                                     new Vector3(0, 0, -0.1f);
+                GetComponent<Rigidbody2D>().position = (Vector3) Vector2.MoveTowards(transform.position, target, speed) + new Vector3(0, 0, -0.1f);
             }
             else
             {

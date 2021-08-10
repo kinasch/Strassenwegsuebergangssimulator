@@ -11,7 +11,7 @@ public class FloorTileSpawner : MonoBehaviour
     [SerializeField] private GameObject[] parents;
     [SerializeField] public Transform mainCam;
 
-    public List<float> streetRows = new List<float>();
+    public List<float> streetRows = new List<float>(), waterRows = new List<float>();
     private Dictionary<float, GameObject[]> tiles = new Dictionary<float, GameObject[]>();
     private int rows = 0;
     private bool startUpDone = false;
@@ -80,6 +80,10 @@ public class FloorTileSpawner : MonoBehaviour
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[2].transform);
                 newObj.GetComponent<SpriteRenderer>().color = Color.red;
                 newObjectsList.Add(newObj);
+                if (j > 5)
+                {
+                    waterRows.Add(xRow);
+                }
             }
         }
         tiles.Add(xRow, newObjectsList.ToArray());

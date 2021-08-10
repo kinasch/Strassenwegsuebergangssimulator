@@ -769,6 +769,7 @@ Transform:
   m_Children:
   - {fileID: 1892595666}
   - {fileID: 1110895932}
+  - {fileID: 1071690102}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1172,6 +1173,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999961323}
   m_CullTransparentMesh: 1
+--- !u!1 &1071690101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071690102}
+  m_Layer: 0
+  m_Name: Leaves
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1071690102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071690101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 607822991}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1110895931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,6 +1481,7 @@ MonoBehaviour:
   - {fileID: 921584014}
   mainCam: {fileID: 131163714}
   streetRows: []
+  waterRows: []
 --- !u!114 &1460298096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1465,6 +1497,8 @@ MonoBehaviour:
   gameManager: {fileID: 1460298093}
   vehiclePrefab: {fileID: 3180615961859947690, guid: a4915dd55ed3bb84795682add20f3005, type: 3}
   vehicleParent: {fileID: 1110895931}
+  leafPrefab: {fileID: 2095136757307917372, guid: d94bbb0635530384f9173028ef365967, type: 3}
+  leafParent: {fileID: 1071690101}
 --- !u!114 &1460298097
 MonoBehaviour:
   m_ObjectHideFlags: 0

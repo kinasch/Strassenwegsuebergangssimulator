@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-public class VehicleBehaviour : MonoBehaviour
+public class VehicleAndLeafBehaviour : MonoBehaviour
 {
     public GameManaging gameManager;
     
@@ -15,25 +15,38 @@ public class VehicleBehaviour : MonoBehaviour
         var position = transform.position;
         target = new Vector2(position.x,position.y + ((Math.Sign(position.y)*-1)*11f));
         startPos = position;
-        StartCoroutine(VehicleMoving());
+        StartCoroutine(StuffMoving());
     }
 
-    IEnumerator VehicleMoving()
+    IEnumerator StuffMoving()
     {
         while (true)
         {
             if (Equals(target, (Vector2) transform.position))
             {
-                transform.position = (Vector3)startPos + new Vector3(0, 0, -0.1f);
+                transform.position = (Vector3)startPos + new Vector3(0, 0, -0.09f);
             }
 
-            transform.position = (Vector3) Vector2.MoveTowards(transform.position, target, speed) + new Vector3(0, 0, -0.1f);
+            transform.position = (Vector3) Vector2.MoveTowards(transform.position, target, speed) + new Vector3(0, 0, -0.09f);
             yield return new WaitForFixedUpdate();
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        gameManager.LoseGame();
+        if (this.name.Contains("vehicle"))
+        {
+            gameManager.LoseGame();
+        }
+        else
+        {
+            other.transform.parent = this.transform;
+            other.transform.localPosition = new Vector3(0, 0, 0);
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        other.transform.parent = null;
     }
 }
