@@ -40,8 +40,9 @@ public class EntityBehaviour : MonoBehaviour
         }
         else if(this.name.Contains("leaf"))
         {
-            Debug.Log("drin");
             gameManager.playerOnLeaf++;
+            other.gameObject.GetComponent<PlayerMovement>().moveWithLeaf = true;
+            other.transform.parent = this.transform;
         }
     }
 
@@ -49,8 +50,9 @@ public class EntityBehaviour : MonoBehaviour
     {
         if(this.name.Contains("leaf"))
         {
-            Debug.Log("draußen");
             gameManager.playerOnLeaf--;
+            other.gameObject.GetComponent<PlayerMovement>().moveWithLeaf = false;
+            other.transform.parent = null; // Same problem when changing leaves as happened with variable above.
         }
     }
 }
