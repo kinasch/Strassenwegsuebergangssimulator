@@ -56,7 +56,7 @@ public class SpawnVehiclesAndLeaves : MonoBehaviour
             if (vehicle)
             {
                 obj = Instantiate(vehiclePrefab, new Vector3(xRow, sign * 5.5f, -0.09f), Quaternion.Euler(0, 0, rotation), vehicleParent.transform);
-                waitTime = 0.3f - speed;
+                waitTime = 0.4f - speed;
             }
             else
             {
