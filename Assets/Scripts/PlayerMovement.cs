@@ -72,5 +72,8 @@ public class PlayerMovement : MonoBehaviour
                 target = playerRigidbody.position;
             }
         }
+
+        var rPosition = playerRigidbody.position;
+        playerRigidbody.position = new Vector2(rPosition.x, Mathf.Clamp(rPosition.y, -4.5f, +4.5f));
     }
 }
