@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-public class VehicleAndLeafBehaviour : MonoBehaviour
+public class EntityBehaviour : MonoBehaviour
 {
     public GameManaging gameManager;
     
@@ -38,15 +38,19 @@ public class VehicleAndLeafBehaviour : MonoBehaviour
         {
             gameManager.LoseGame();
         }
-        else
+        else if(this.name.Contains("leaf"))
         {
-            other.transform.parent = this.transform;
-            other.transform.localPosition = new Vector3(0, 0, 0);
+            Debug.Log("drin");
+            gameManager.playerOnLeaf++;
         }
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnCollisionExit2D(Collision2D other)
     {
-        other.transform.parent = null;
+        if(this.name.Contains("leaf"))
+        {
+            Debug.Log("draußen");
+            gameManager.playerOnLeaf--;
+        }
     }
 }

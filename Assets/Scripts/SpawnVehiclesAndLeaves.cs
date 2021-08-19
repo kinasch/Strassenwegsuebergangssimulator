@@ -33,7 +33,7 @@ public class SpawnVehiclesAndLeaves : MonoBehaviour
         {
             if (!rowsWithLeaves.Contains(leavesRow))
             {
-                StartCoroutine(Spawn(leavesRow, UnityEngine.Random.Range(0.05f, 0.12f), UnityEngine.Random.Range(1, 4), false));
+                StartCoroutine(Spawn(leavesRow, UnityEngine.Random.Range(0.01f, 0.03f), UnityEngine.Random.Range(1, 4), false));
                 rowsWithLeaves.Add(leavesRow);
             }
         }
@@ -48,6 +48,7 @@ public class SpawnVehiclesAndLeaves : MonoBehaviour
 
         int sign = UnityEngine.Random.value < 0.5f ? -1 : 1;
         int rotation = sign == 1 ? 180 : 0;
+        float waitTime = 0;
         
         for (int i = 0; i < amount; i++)
         {
@@ -55,16 +56,26 @@ public class SpawnVehiclesAndLeaves : MonoBehaviour
             if (vehicle)
             {
                 obj = Instantiate(vehiclePrefab, new Vector3(xRow, sign * 5.5f, -0.09f), Quaternion.Euler(0, 0, rotation), vehicleParent.transform);
+                waitTime = 0.3f - speed;
             }
             else
             {
                 obj = Instantiate(leafPrefab, new Vector3(xRow, sign * 5.5f, -0.09f), Quaternion.Euler(0, 0, rotation), leafParent.transform);
+                waitTime = UnityEngine.Random.Range(0.9f,1.5f);
             }
             
-            obj.GetComponent<VehicleAndLeafBehaviour>().speed = speed;
-            obj.GetComponent<VehicleAndLeafBehaviour>().gameManager = gameManaging;
+            obj.GetComponent<EntityBehaviour>().speed = speed;
+            obj.GetComponent<EntityBehaviour>().gameManager = gameManaging;
             spawnedStuff.Add(obj);
-            yield return new WaitForSeconds(0.3f-speed);
+            yield return new WaitForSecondsRealtime(waitTime);
+        }
+
+        if (spawnedStuff.Count > 2)
+        {
+            if (Mathf.Abs(Mathf.Abs(spawnedStuff[0].transform.position.y) - Mathf.Abs(spawnedStuff[1].transform.position.y)) <= 0.639f)
+            {
+                spawnedStuff[0].GetComponent<SpriteRenderer>().color = Color.black;
+            }
         }
         
         stuff.Add(xRow, spawnedStuff.ToArray());

@@ -8,8 +8,11 @@ public class GameManaging : MonoBehaviour
 {
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private FloorTileSpawner floorTileSpawner;
+    [SerializeField] private GameObject player;
 
     private bool paused = false, input = true;
+    public int playerOnLeaf = 0;
 
     private void Update()
     {
@@ -26,7 +29,15 @@ public class GameManaging : MonoBehaviour
             input = true;
         }
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (floorTileSpawner.waterRows.Contains(player.transform.position.x) && playerOnLeaf == 0)
+        {
+            LoseGame();
+        }
+    }
+
     private void PauseOrUnpause()
     {
             if (paused)
