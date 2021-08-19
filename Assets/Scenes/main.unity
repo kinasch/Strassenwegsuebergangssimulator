@@ -1474,6 +1474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 255774403}
   floorTilePrefab: {fileID: 2102287785637770597, guid: ee710ae3973a0d24b96af2ddf4c4d7cc, type: 3}
+  waterSprite: {fileID: 21300000, guid: 7af79eede8e658b488a230a65db6c072, type: 3}
   parents:
   - {fileID: 564103065}
   - {fileID: 1923009256}
