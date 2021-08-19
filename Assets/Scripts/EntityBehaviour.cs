@@ -41,6 +41,7 @@ public class EntityBehaviour : MonoBehaviour
         else if(this.name.Contains("leaf"))
         {
             gameManager.playerOnLeaf++;
+            other.transform.position = this.transform.position + new Vector3(0,0,-1f);
             other.gameObject.GetComponent<PlayerMovement>().moveWithLeaf = true;
             other.transform.parent = this.transform;
         }
