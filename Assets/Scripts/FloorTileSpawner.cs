@@ -8,6 +8,7 @@ public class FloorTileSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private GameObject floorTilePrefab;
+    [SerializeField] private Sprite waterSprite;
     [SerializeField] private GameObject[] parents;
     [SerializeField] public Transform mainCam;
 
@@ -73,7 +74,7 @@ public class FloorTileSpawner : MonoBehaviour
             else if (randomizer > 0.8f && !waterRows.Contains(xRow-1))
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[2].transform);
-                newObj.GetComponent<SpriteRenderer>().color = Color.red;
+                newObj.GetComponent<SpriteRenderer>().sprite = waterSprite;
                 newObjectsList.Add(newObj);
                 if (j > 5)
                 {
