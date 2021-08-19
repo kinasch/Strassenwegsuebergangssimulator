@@ -41,9 +41,12 @@ public class EntityBehaviour : MonoBehaviour
         else if(this.name.Contains("leaf"))
         {
             gameManager.playerOnLeaf++;
-            other.transform.position = this.transform.position + new Vector3(0,0,-1f);
-            other.gameObject.GetComponent<PlayerMovement>().moveWithLeaf = true;
-            other.transform.parent = this.transform;
+            if (other.transform.parent == null)
+            {
+                other.transform.position = this.transform.position + new Vector3(0, 0, -1f);
+                other.transform.parent = this.transform;
+            }
+            StartCoroutine(PlayerMoveWithLeafWaitingTime(other.gameObject));
         }
     }
 
@@ -53,7 +56,17 @@ public class EntityBehaviour : MonoBehaviour
         {
             gameManager.playerOnLeaf--;
             other.gameObject.GetComponent<PlayerMovement>().moveWithLeaf = false;
-            other.transform.parent = null; // Same problem when changing leaves as happened with variable above.
+            if (gameManager.playerOnLeaf == 0)
+            {
+                other.transform.parent = null; // Same problem when changing leaves as happened with variable above.
+            }
         }
+    }
+
+    IEnumerator PlayerMoveWithLeafWaitingTime(GameObject other)
+    {
+        yield return new WaitForSeconds(0.01f);
+        other.GetComponent<PlayerMovement>().moveWithLeaf = true;
+        yield return null;
     }
 }

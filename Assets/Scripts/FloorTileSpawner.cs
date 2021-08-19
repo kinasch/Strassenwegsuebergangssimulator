@@ -60,12 +60,7 @@ public class FloorTileSpawner : MonoBehaviour
         randomizer = randomizer > 1 ? Random.value : randomizer;
         for (float j = -5.5f; j <= 5.5f; j++)
         {
-            if (randomizer <= 0.4f)
-            {
-                var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[0].transform);
-                newObjectsList.Add(newObj);
-            }
-            else if (randomizer > 0.4f && randomizer <= 0.8f)
+            if (randomizer > 0.4f && randomizer <= 0.8f)
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[1].transform);
                 newObj.GetComponent<SpriteRenderer>().color = Color.black;
@@ -75,7 +70,7 @@ public class FloorTileSpawner : MonoBehaviour
                 }
                 newObjectsList.Add(newObj);
             }
-            else if (randomizer > 0.8f)
+            else if (randomizer > 0.8f && !waterRows.Contains(xRow-1))
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[2].transform);
                 newObj.GetComponent<SpriteRenderer>().color = Color.red;
@@ -84,6 +79,11 @@ public class FloorTileSpawner : MonoBehaviour
                 {
                     waterRows.Add(xRow);
                 }
+            }
+            else
+            {
+                var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[0].transform);
+                newObjectsList.Add(newObj);
             }
         }
         tiles.Add(xRow, newObjectsList.ToArray());
