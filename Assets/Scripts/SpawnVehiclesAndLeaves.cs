@@ -43,42 +43,50 @@ public class SpawnVehiclesAndLeaves : MonoBehaviour
     
     IEnumerator Spawn(float xRow, float speed, int amount, bool vehicle)
     {
+        GameObject tempGameObject = null;
         List<GameObject> spawnedStuff = new List<GameObject>();
-        Mathf.Clamp(amount, 1, 3);
 
         int sign = UnityEngine.Random.value < 0.5f ? -1 : 1;
         int rotation = sign == 1 ? 180 : 0;
-        float waitTime = 0;
+        // float waitTime = 0;
         
         for (int i = 0; i < amount; i++)
         {
+            // Create distance between the different vehicles or leaves
+            // fixed distance
+            if (tempGameObject != null)
+            {
+                // Should the tempGameObject contain any GameObject,
+                // then check the objects absolute y position until it reaches below a set value.
+                // After that is reached, leave the while and create new objects.
+                while(Mathf.Abs(tempGameObject.transform.position.y) > 4.2f)
+                {
+                    yield return null;
+                }
+            }
+            
             GameObject obj = null;
             if (vehicle)
             {
                 obj = Instantiate(vehiclePrefab, new Vector3(xRow, sign * 5.5f, -0.09f), Quaternion.Euler(0, 0, rotation), vehicleParent.transform);
-                waitTime = 0.4f - speed;
             }
             else
             {
                 obj = Instantiate(leafPrefab, new Vector3(xRow, sign * 5.5f, -0.09f), Quaternion.Euler(0, 0, rotation), leafParent.transform);
-                waitTime = UnityEngine.Random.Range(0.9f,1.5f);
             }
             
+            // Speed and the GameManager are things that deviate from the original prefab, thus need updates.
             obj.GetComponent<EntityBehaviour>().speed = speed;
             obj.GetComponent<EntityBehaviour>().gameManager = gameManaging;
             spawnedStuff.Add(obj);
-            yield return new WaitForSecondsRealtime(waitTime);
+
+            // Save the object for the creation of distance (see beneath for loop, l.1 of scope)
+            tempGameObject = obj;
         }
 
-        if (spawnedStuff.Count > 2)
-        {
-            if (Mathf.Abs(Mathf.Abs(spawnedStuff[0].transform.position.y) - Mathf.Abs(spawnedStuff[1].transform.position.y)) <= 0.639f)
-            {
-                spawnedStuff[0].GetComponent<SpriteRenderer>().color = Color.black;
-            }
-        }
-        
         stuff.Add(xRow, spawnedStuff.ToArray());
+
+        yield return null;
     }
     
     private void GarbageCollector(float xPos)
