@@ -8,10 +8,11 @@ public class FloorTileSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private GameObject floorTilePrefab;
+    [SerializeField] private Sprite waterSprite;
     [SerializeField] private GameObject[] parents;
     [SerializeField] public Transform mainCam;
 
-    public List<float> streetRows = new List<float>();
+    public List<float> streetRows = new List<float>(), waterRows = new List<float>();
     private Dictionary<float, GameObject[]> tiles = new Dictionary<float, GameObject[]>();
     private int rows = 0;
     private bool startUpDone = false;
@@ -60,12 +61,7 @@ public class FloorTileSpawner : MonoBehaviour
         randomizer = randomizer > 1 ? Random.value : randomizer;
         for (float j = -5.5f; j <= 5.5f; j++)
         {
-            if (randomizer <= 0.4f)
-            {
-                var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[0].transform);
-                newObjectsList.Add(newObj);
-            }
-            else if (randomizer > 0.4f && randomizer <= 0.8f)
+            if (randomizer > 0.4f && randomizer <= 0.8f)
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[1].transform);
                 newObj.GetComponent<SpriteRenderer>().color = Color.black;
@@ -75,10 +71,19 @@ public class FloorTileSpawner : MonoBehaviour
                 }
                 newObjectsList.Add(newObj);
             }
-            else if (randomizer > 0.8f)
+            else if (randomizer > 0.8f && !waterRows.Contains(xRow-1))
             {
                 var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[2].transform);
-                newObj.GetComponent<SpriteRenderer>().color = Color.red;
+                newObj.GetComponent<SpriteRenderer>().sprite = waterSprite;
+                newObjectsList.Add(newObj);
+                if (j > 5)
+                {
+                    waterRows.Add(xRow);
+                }
+            }
+            else
+            {
+                var newObj = Instantiate(floorTilePrefab, new Vector3(xRow, j, 0), new Quaternion(), parents[0].transform);
                 newObjectsList.Add(newObj);
             }
         }
