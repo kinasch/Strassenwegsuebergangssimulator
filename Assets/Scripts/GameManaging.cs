@@ -10,9 +10,11 @@ public class GameManaging : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private FloorTileSpawner floorTileSpawner;
     [SerializeField] private GameObject player;
+    [SerializeField] private AudioSource music;
 
     private bool paused = false, input = true;
     public int playerOnLeaf = 0;
+    private bool musicMuted = false;
 
     private void Update()
     {
@@ -61,5 +63,26 @@ public class GameManaging : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void MuteOrUnmuteMusic()
+    {
+        if (music == null) return;
+        
+        if (musicMuted)
+        {
+            musicMuted = false;
+            music.volume = 0.28f;
+        }
+        else
+        {
+            musicMuted = true;
+            music.volume = 0f;
+        }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
